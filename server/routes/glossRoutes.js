@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     res.json({ pslGloss: glossData.pslGloss });
   } else {
     res.json({
-      pslGloss: "Default gloss or random gloss if sentence not found",
+      pslGloss: "No gloss found for this English text.",
     });
   }
 });

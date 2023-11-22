@@ -30,9 +30,9 @@ const Navbar = () => {
           <Link to="/login" className="home">
             <li>Login</li>
           </Link>
-          <Link to="#" className="mt-1 sm: mr-4 ">
+          {/* <Link to="#" className="mt-1 sm: mr-4 ">
             <ModeToggle />
-          </Link>
+          </Link> */}
         </ul>
         {/* 
         whenever we click on button = setMobile(!Mobile) ==  is mobile oppsite to setMobile 

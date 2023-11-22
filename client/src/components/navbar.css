@@ -18,9 +18,9 @@ li {
   align-items: center;
   height: 10vh;
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 30px -20px; */
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-  width: 95%;
+  width: 93%;
   position: fixed;
   top: 20px;
   left: 50%;
@@ -29,7 +29,7 @@ li {
 }
 .logo {
   font-size: 30px;
-  color: #7c3aed; /* Change the color on hover */
+  color: #122053; /* Change the color on hover */
 }
 .nav-links {
   display: flex;
