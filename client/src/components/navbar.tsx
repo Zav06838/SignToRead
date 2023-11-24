@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./navbar.css";
 
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-import { ModeToggle } from "./mode-toggle";
+// import { ModeToggle } from "./mode-toggle";
 
 const Navbar = () => {
   const [Mobile, setMobile] = useState(false);

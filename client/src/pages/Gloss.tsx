@@ -65,9 +65,9 @@ function GlossApp() {
           </Button>
         </div>
 
-        {/* {isSaved && (
+        {isSaved && (
           <p className="text-green-500 text-center mt-4">Gloss saved!</p>
-        )} */}
+        )}
       </div>
     </div>
   );
