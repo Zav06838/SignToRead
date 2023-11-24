@@ -8,7 +8,6 @@ import "../App.css";
 import { useState } from "react";
 import { Icons } from "@/components/icons";
 import { Volume2 } from "lucide-react";
-
 import {
   Tooltip,
   TooltipContent,
@@ -16,14 +15,17 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 const TextToGloss = () => {
   const maxCharacters = 500;
   const [inputText, setInputText] = useState("");
   const [glossText, setGlossText] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showLoadingSkeleton, setShowLoadingSkeleton] = useState(false);
 
-  const handleTextChange = (event) => {
+  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (event.target.value.length <= maxCharacters) {
       setInputText(event.target.value);
     }
@@ -35,11 +37,13 @@ const TextToGloss = () => {
         englishText: inputText,
       });
       setIsLoading(true);
+      setShowLoadingSkeleton(true); // Show loading skeleton while loading
+
       setTimeout(() => {
         setGlossText(response.data.pslGloss);
-
         setIsLoading(false);
-      }, 2000);
+        setShowLoadingSkeleton(false); // Hide loading skeleton when data is loaded
+      }, 3000);
     } catch (error) {
       console.error("Error fetching gloss:", error);
       toast.error("Failed to fetch gloss.");
@@ -59,6 +63,7 @@ const TextToGloss = () => {
     const utterance = new SpeechSynthesisUtterance(inputText);
     speechSynthesis.speak(utterance);
   };
+ 
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 ">
@@ -139,7 +144,16 @@ const TextToGloss = () => {
               PSL Gloss
             </label>
             <div className="border rounded-md p-2 w-full h-64 relative bg-slate-200">
-              {glossText || "The PSL gloss will be displayed here..."}
+              {/* {glossText || "The PSL gloss will be displayed here..."} */}
+              {showLoadingSkeleton ? (
+                <div className="space-y-2 mt-1">
+                  <Skeleton className="h-3 w-[475px] bg-[#BCC7EF]" />
+                  <Skeleton className="h-3 w-[400px] bg-[#BCC7EF]" />
+                  <Skeleton className="h-3 w-[450px] bg-[#BCC7EF]" />
+                </div>
+              ) : (
+                glossText || "The PSL gloss will be displayed here..."
+              )}
               {glossText && (
                 <TooltipProvider>
                   <Tooltip>

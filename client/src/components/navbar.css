@@ -38,7 +38,7 @@ li {
 }
 
 .nav-links li {
-  color: black;
+  color: #122053;
   font-size: 20px;
   padding: 10px 20px;
   margin: 0 10px;
@@ -101,12 +101,12 @@ button {
 }
 
 .nav-links li:hover {
-  color: #7c3aed; /* Change the color on hover */
+  color: #3f62c4; /* Change the color on hover */
   transition: color 0.3s; /* Add transition for smooth effect */
 }
 
 .nav-links-mobile li:hover {
-  color: #7c3aed; /* Change the color on hover */
+  color: #3f62c4; /* Change the color on hover */
   transition: color 0.3s; /* Add transition for smooth effect */
 }
 
