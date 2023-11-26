@@ -103,5 +103,6 @@ button {
     position: absolute;
     display: flex;
     right: 32px;
+    color: black;
   }
 }
