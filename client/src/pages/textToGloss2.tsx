@@ -106,7 +106,7 @@ const TextToGloss = () => {
             </Label>
             <textarea
               id="english-text"
-              className="resize-none border rounded-md p-2 w-full h-64 outline-none bg-slate-100"
+              className="resize-none border rounded-md p-2 w-full h-64 outline-none bg-slate-100 text-black"
               placeholder="Type or paste text here..."
               value={inputText}
               onChange={handleTextChange}
@@ -171,7 +171,7 @@ const TextToGloss = () => {
             >
               PSL Gloss
             </label>
-            <div className="border rounded-md p-2 w-full h-64 relative bg-slate-200">
+            <div className="border rounded-md p-2 w-full h-64 relative bg-slate-200 text-black">
               {/* {glossText || "The PSL gloss will be displayed here..."} */}
               {isLoading ? (
                 <LoadingDots />
