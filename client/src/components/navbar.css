@@ -10,12 +10,11 @@
 a {
   text-decoration: none;
   color: #122053;
-
 }
 
 li {
   list-style-type: none;
-
+  color: #122053;
 }
 
 .navbar {
@@ -94,12 +93,6 @@ button {
     width: 100%;
     transition: all 0.5s ease-in-out;
     text-align: center;
-  }
-
-  ul li:hover {
-    border-radius: 15px;
-    background-color: #122053;
-    color: white;
   }
 
   .mobile-menu-icon {
