@@ -5,15 +5,17 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  color: #122053;
 }
 
 a {
   text-decoration: none;
+  color: #122053;
+
 }
 
 li {
   list-style-type: none;
+
 }
 
 .navbar {

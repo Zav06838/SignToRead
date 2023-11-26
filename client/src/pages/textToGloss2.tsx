@@ -95,7 +95,7 @@ const TextToGloss = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 pt-28 lg:pt-0 md:pt-0">
-      <div className="bg-[#BCC7EF] shadow-xl rounded-xl p-16 md:flex md:max-w-screen-2xl w-full md:justify-center">
+      <div className="bg-[#BCC7EF] shadow-xl rounded-xl md:p-16 lg:p-16 md:flex md:max-w-screen-2xl w-full md:justify-center sm:p-0">
         <div className="bg-[#122053] shadow-lg shadow-black/40 rounded-xl p-6 md:flex md:max-w-screen-xl w-full  ">
           <div className="flex flex-col w-full md:w-1/2 md:mr-4 relative">
             <Label

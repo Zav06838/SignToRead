@@ -27,9 +27,12 @@ const Navbar = () => {
             <li>Login</li>
           </Link>
         </ul>
-        <button className="mobile-menu-icon" onClick={() => setMobile(!mobile)}>
-          {mobile ? <ImCross /> : <FaBars />}
-        </button>
+          <button
+            className="mobile-menu-icon"
+            onClick={() => setMobile(!mobile)}
+          >
+            {mobile ? <ImCross /> : <FaBars />}
+          </button>
       </nav>
     </>
   );
