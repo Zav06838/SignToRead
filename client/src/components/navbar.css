@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -9,28 +10,31 @@
 a {
   text-decoration: none;
 }
+
 li {
   list-style-type: none;
 }
+
 .navbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 10vh;
-  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 30px -20px; */
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   width: 93%;
-  position: fixed;
+  position: absolute;
   top: 20px;
   left: 50%;
   transform: translate(-50%);
   background-color: white;
 }
+
 .logo {
-  font-size: 30px;
-  color: #122053; /* Change the color on hover */
+  font-size: 28px;
+  color: #122053;
 }
+
 .nav-links {
   display: flex;
   justify-content: flex-end;
@@ -45,73 +49,59 @@ li {
   cursor: pointer;
   text-transform: capitalize;
 }
-.hero {
-  text-align: center;
-  margin-top: 15%;
-}
-.hero h1 {
-  text-align: center;
-  font-size: 60px;
-}
+
 .mobile-menu-icon {
   display: none;
 }
+
 button {
   border: none;
   text-decoration: none;
   font-size: 20px;
   background: none;
 }
+
 @media (max-width: 768px) {
   .logo {
     display: flex;
     position: absolute;
-    top: 15px;
-    left: 35px;
   }
+
   .nav-links {
     display: none;
   }
+
   .nav-links-mobile {
     position: absolute;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     list-style: none;
-    box-shadow: rgba(50, 50, 93, 0.23) 0px 50px 100px -20px,
-      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     left: 0;
     top: 10%;
     transition: all 0.5s ease-in-out;
     width: 100%;
     background-color: white;
+    height: 8vh;
+    border-radius: 15px;
   }
+
   ul li {
     padding: 32px;
     width: 100%;
     transition: all 0.5s ease-in-out;
     text-align: center;
   }
+
+  ul li:hover {
+    border-radius: 15px;
+    background-color: #122053;
+    color: white;
+  }
+
   .mobile-menu-icon {
     position: absolute;
-    display: block;
-    right: 20px;
+    display: flex;
+    right: 32px;
   }
-  .hero h1 {
-    font-size: 50px;
-  }
-}
-
-.nav-links li:hover {
-  color: #3f62c4; /* Change the color on hover */
-  transition: color 0.3s; /* Add transition for smooth effect */
-}
-
-.nav-links-mobile li:hover {
-  color: #3f62c4; /* Change the color on hover */
-  transition: color 0.3s; /* Add transition for smooth effect */
-}
-
-/* Home.css */
-.image {
-  max-width: 100%;
-  height: auto;
 }
