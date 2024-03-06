@@ -1,0 +1,47 @@
+@keyframes pulseAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.animated-arrow {
+  animation: pulseAnimation 1s infinite;
+}
+@keyframes colorChange {
+  0% { color: #6074BC; } /* Initial Color */
+  50% { color: #743fc4; } /* Intermediate Color */
+  100% { color: #b360bc; } /* Final Color */
+}
+
+.color-animated-arrow {
+  animation: colorChange 2s infinite;
+}
+
+/* Your other styles... */
+
+.loading-animation {
+  animation: loadingAnimation 1s infinite alternate; /* Customize the animation duration and type */
+}
+
+@keyframes loadingAnimation {
+  0% {
+    background-color: #f0f0f0; /* Initial background color */
+  }
+  100% {
+    background-color: #e0e0e0; /* Alternate background color */
+  }
+}
+
+.accordion {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  max-height: 0;
+}
+
+.accordion.is-open {
+  max-height: 100px; /* Adjust as needed for your content */
+}
+
+.accordion-content {
+  margin: 10px 0; /* Adjust for spacing */
+}

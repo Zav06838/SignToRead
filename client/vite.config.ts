@@ -12,6 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/glosses": "http://localhost:3000",
+      "/merge-videos": "http://localhost:3000",
     },
   },
 });

@@ -20,8 +20,11 @@ const Navbar = () => {
           <Link to="/" className="home">
             <li>Home</li>
           </Link>
-          <Link to="/gloss" className="about">
+          {/* <Link to="/gloss" className="about">
             <li>Gloss</li>
+          </Link> */}
+          <Link to="/history" className="about">
+            <li>History</li>
           </Link>
           <Link to="/login" className="home">
             <li>Login</li>

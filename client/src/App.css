@@ -5,8 +5,8 @@
 }
 
 .loading-dots-wrapper {
-  padding: 10px; /* Adjust padding as needed */
-  min-height: 64px; /* Match the height of your text area */
+  padding: 6px;
+  /* min-height: 64px; Match the height of your text area */
 }
 
 .loading-dots {
@@ -39,4 +39,8 @@
   100% {
     background-color: #bcc7ef;
   }
+}
+
+.body{
+  background: linear-gradient(180deg, #0c0c1d, #111132);
 }
