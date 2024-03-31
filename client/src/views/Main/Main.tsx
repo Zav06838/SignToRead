@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/clerk-react";
 import Nav from "@/pages/Nav";
 import { useTheme } from "@/components/theme-provider"; // Adjust the import based on your actual theme provider hook
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Main = () => {
   const [inputText, setInputText] = useState<string>("");
@@ -69,7 +70,7 @@ const Main = () => {
     try {
       // Call the model API to generate gloss from input text
       const modelResponse = await axios.post(
-        "http://119.63.132.178:5001/translate",
+        "https://119.63.132.178:5001/translate",
         { text: inputText } // Pass the inputText directly
       );
 
@@ -91,6 +92,7 @@ const Main = () => {
         const videoBlobUrl = URL.createObjectURL(response.data);
         setVideoSource(videoBlobUrl);
         setShowResult(true);
+        setShowCardsLoader(false); // Hide loader for cards
         // setGreetAndCardsVisible(false);
 
         // Dispatch action to add history item to Redux store
@@ -125,7 +127,7 @@ const Main = () => {
           <div>
             <div className="greet">
               <p>
-                <span>Hello, {user?.firstName || ""}</span>
+                <span>Hello, {user?.firstName || user?.username || ""}</span>
               </p>
               <p>
                 <span className="low">Ready to translate?</span>
@@ -134,6 +136,7 @@ const Main = () => {
 
             {showCardsLoader ? (
               // Loader for cards
+
               <div className="m-10">
                 <div className="loaderp bg-slate-200 h-8 w-[600px]" />
                 <div className="loaderDiv mt-4" />
@@ -201,7 +204,7 @@ const Main = () => {
                 // Loading indicator (e.g., spinner) while the server is processing the video merge
                 <div className="m-10">
                   <div className="loaderp bg-slate-200 h-8 w-[600px]" />
-                  
+
                   <div className="loaderDiv mt-4" />
                 </div>
               ) : showResult && videoSource ? (

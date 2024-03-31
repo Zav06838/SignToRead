@@ -34,7 +34,7 @@ const Main2 = () => {
   const [videoSource, setVideoSource] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   // const [glossText, setGlossText] = useState<string>("");
-  const [, setStopGeneration] = useState<boolean>(false); 
+  const [, setStopGeneration] = useState<boolean>(false);
 
   // const dispatch = useDispatch();
 
@@ -104,7 +104,7 @@ const Main2 = () => {
 
       {/* Main container */}
 
-      <div className="main-container">
+      <div className="main-container ">
         <div>
           <div className="greet">
             <p>

@@ -10,7 +10,6 @@ const videoRouter = require("./routes/videoRoutes");
 
 const localRouter = require("./routes/videoLocal");
 
-
 require("dotenv").config();
 
 const app = express();
@@ -27,18 +26,17 @@ app.use(express.json());
 //   next();
 // });
 
-
 const corsOptions = {
   origin: [
     "http://127.0.0.1:5173",
     "http://119.63.132.178:5000",
+    "https://sign-to-read.vercel.app/",
   ], // Allow requests from both frontend origins
   credentials: true, // To allow cookies
   optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
-
 
 mongoose
   .connect(process.env.MONGO_URI)
