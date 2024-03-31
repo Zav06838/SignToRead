@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { UserButton, useClerk, useUser } from "@clerk/clerk-react";
-import { Link } from "react-router-dom";
-import { ModeToggle } from "@/components/mode-toggle";
+import { RootState } from "../../store/store";
+// import { UserButton, useClerk, useUser } from "@clerk/clerk-react";
+// import { Link } from "react-router-dom";
+// import { ModeToggle } from "@/components/mode-toggle";
 import Nav from "@/pages/Nav";
 
 const HistoryPage: React.FC = () => {

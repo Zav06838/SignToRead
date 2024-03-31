@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Psl from "../../public/psl.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import axios from "axios";
+// import axios from "axios";
 
 const Login1 = () => {
   const navigate = useNavigate();

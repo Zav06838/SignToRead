@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Main.css";
 import Card from "./Card";
 import bulb_icon from "../../assets/idea.png";
@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { addHistoryItems } from "@/store/historyModelSlice";
 import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+// import { Icons } from "@/components/icons";
 import { useUser } from "@clerk/clerk-react";
 import Nav from "@/pages/Nav";
 import { useTheme } from "@/components/theme-provider"; // Adjust the import based on your actual theme provider hook
@@ -27,7 +27,7 @@ const Main = () => {
   const [videoSource, setVideoSource] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [glossText, setGlossText] = useState<string>("");
-  const [stopGeneration, setStopGeneration] = useState<boolean>(false);
+  const [, setStopGeneration] = useState<boolean>(false);
   const [showCardsLoader, setShowCardsLoader] = useState<boolean>(false); // New state for cards loader
 
   const dispatch = useDispatch();

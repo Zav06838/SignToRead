@@ -1,14 +1,14 @@
 import { ModeToggle } from '@/components/mode-toggle';
-import { UserButton, useClerk, useUser } from '@clerk/clerk-react';
+import { UserButton, useUser } from '@clerk/clerk-react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Nav = () => {
   const { isSignedIn } = useUser(); // Now also getting the user object
-  const { openSignIn } = useClerk(); // Use useClerk hook to access Clerk functions
+  // const { openSignIn } = useClerk(); // Use useClerk hook to access Clerk functions
 
-  const handleLoginClick = () => {
-    openSignIn(); // Directly opens Clerk's sign-in modal
-  };
+  // const handleLoginClick = () => {
+  //   openSignIn(); // Directly opens Clerk's sign-in modal
+  // };
 
   return (
     <div className="nav ">

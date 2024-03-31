@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Main2.css";
-import Card from "./Main/Card";
-import bulb_icon from "../assets/idea.png";
-import bulb_icon2 from "../assets/idea2.png";
-import pen from "../assets/pen.png";
-import pen2 from "../assets/pen2.png";
-import send from "../assets/send2.png";
-import send2 from "../assets/send-bgwhite.png";
-import stop from "../assets/stop3.png";
-import stop2 from "../assets/stop2.png";
+import Card from "../Main/Card";
+import bulb_icon from "../../assets/idea.png";
+import bulb_icon2 from "../../assets/idea2.png";
+import pen from "../../assets/pen.png";
+import pen2 from "../../assets/pen2.png";
+import send from "../../assets/send2.png";
+import send2 from "../../assets/send-bgwhite.png";
+import stop from "../../assets/stop3.png";
+import stop2 from "../../assets/stop2.png";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { toast } from "sonner";
-import { addHistoryItems } from "@/store/historyModelSlice";
+// import { useDispatch } from "react-redux";
+// import { toast } from "sonner";
+// import { addHistoryItems } from "@/store/historyModelSlice";
 import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+// import { Icons } from "@/components/icons";
 import { useUser } from "@clerk/clerk-react";
 import Nav from "@/pages/Nav";
 import { useTheme } from "@/components/theme-provider"; // Adjust the import based on your actual theme provider hook
-import Loader from "./Main/Loader";
+// import Loader from "../Main/Loader";
 import {
   Tooltip,
   TooltipContent,
@@ -29,14 +29,14 @@ import {
 const Main2 = () => {
   const [inputText, setInputText] = useState<string>("");
   const [showResult, setShowResult] = useState<boolean>(false);
-  const [greetAndCardsVisible, setGreetAndCardsVisible] =
-    useState<boolean>(true);
+  // const [greetAndCardsVisible, setGreetAndCardsVisible] =
+  //   useState<boolean>(true);
   const [videoSource, setVideoSource] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [glossText, setGlossText] = useState<string>("");
-  const [stopGeneration, setStopGeneration] = useState<boolean>(false); // State variable to control generation process
+  // const [glossText, setGlossText] = useState<string>("");
+  const [, setStopGeneration] = useState<boolean>(false); 
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const { theme } = useTheme();
 

@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ArrowLeftRight } from "lucide-react";
 import "../App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Icons } from "@/components/icons";
 import { Volume2 } from "lucide-react";
-import "../pages/text2gloss.css";
+// import "../pages/text2gloss.css";
 import axios from "axios";
 
 import { useDispatch } from "react-redux";
@@ -33,16 +33,16 @@ const Video = () => {
   const [inputText, setInputText] = useState("");
   const [glossText, setGlossText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [videoSources, setVideoSources] = useState<string[]>([]);
+  const [, setVideoSources] = useState<string[]>([]);
   const [videoSource, setVideoSource] = useState("");
   // const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   // const [preloadIndex, setPreloadIndex] = useState(0);
   // const [generationCount, setGenerationCount] = useState(0);
-  const [videoError, setVideoError] = useState(false);
+  const [, setVideoError] = useState(false);
 
   const dispatch = useDispatch();
-  const [isCopied, setIsCopied] = useState(false);
+  const [, setIsCopied] = useState(false);
   const [videoVisible, setVideoVisible] = useState(false); // State to manage the visibility of the video
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
