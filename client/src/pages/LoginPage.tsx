@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 // import axios from "axios";
 
-const Login = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -111,4 +111,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -4,7 +4,7 @@ import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { ClerkProvider, RedirectToSignIn, useUser } from "@clerk/clerk-react";
 
-import Login from "./pages/Login";
+import Login from "./pages/LoginPage";
 import Signup from "./pages/Signup";
 import Video from "./views/Video";
 import Hero from "./views/hero/Hero";
@@ -14,13 +14,6 @@ import HistoryPage from "./views/history/HistoryPage";
 import Main2 from "./views/Main2/Main2";
 // import Nav from "./pages/Nav";
 // import Navbar from "./components/navbar";
-// import HistoryDisplay from "./pages/History";
-// import Validate from "./pages/validate";
-// import Gloss from "./pages/Gloss";
-// import TextToGloss from "./pages/TextToGloss";
-// import TextToGloss2 from "./pages/textToGloss2";
-// import TextToGloss3 from "./pages/text2gloss3";
-// import VideoModel from "./views/VideoModel";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
