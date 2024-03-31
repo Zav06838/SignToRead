@@ -1,6 +1,8 @@
 .hero {
   height: 100vh;
-  background: linear-gradient(180deg, #0c0c1d, #111132);
+  // background: linear-gradient(180deg, #131314, #111132);
+  background: -webkit-linear-gradient(16deg, #085078, #71b280);
+  // background: linear-gradient(180deg, #0c0c1d, #111132);
   overflow: hidden;
   position: relative;
   z-index: 1111;
@@ -23,7 +25,7 @@
 
         h2 {
           font-size: 30px;
-          color: rebeccapurple;
+          color: #e3e3e3;
           letter-spacing: 10px;
         }
 

@@ -102,3 +102,13 @@ button {
     color: black;
   }
 }
+
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  padding: 20px;
+  color: #f1f1f1;
+}

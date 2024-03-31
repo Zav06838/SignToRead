@@ -72,7 +72,7 @@ const Video = () => {
     try {
       // Call the model API to generate gloss from input text
       const modelResponse = await axios.post(
-        "http://119.63.132.178:5000/translate",
+        "http://119.63.132.178:5001/translate",
         { text: inputText } // Pass the inputText directly
       );
 

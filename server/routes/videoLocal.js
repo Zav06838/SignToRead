@@ -3,11 +3,6 @@ const router = express.Router();
 const path = require("path");
 const fs = require("fs");
 const { spawn } = require("child_process");
-const axios = require("axios");
-
-// Replace with the appropriate model and token information
-const modelId = "najju/LLama2-sign-to-read-psl";
-const hfToken = "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";
 
 // Absolute paths to the videos directories
 const videosDir =
@@ -33,11 +28,13 @@ const preprocessVideo = (videoPath) => {
     "-i",
     videoPath,
     "-vf",
-    "scale=1280:720", // scale to 1280x720 resolution
+    "scale=854:480", // scale to 1280x720 resolution
     "-r",
     "30", // set frame rate to 30 fps
     "-c:v",
     "libx264", // set video codec to libx264
+    "-preset",
+    "ultrafast", // use the ultrafast preset for faster encoding // set video codec to libx264
     "-c:a",
     "aac", // set audio codec to AAC
     "-strict",
@@ -57,60 +54,79 @@ const preprocessVideo = (videoPath) => {
   });
 };
 
-const generateGloss = async (text) => {
-  const response = await axios.post(
-    `https://api-inference.huggingface.co/models/${modelId}`,
-    { inputs: text },
-    {
-      headers: {
-        Authorization: `Bearer ${hfToken}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  return response.data;
-};
-
-router.post("/process-gloss", async (req, res) => {
-  try {
-    const generatedGloss = req.body.generatedGloss;
-
-    // Process the generated gloss using the Sign to Read model
-    const processedGloss = await generateGloss(generatedGloss);
-
-    // Return the processed gloss
-    return res.status(200).json({ processedGloss });
-  } catch (error) {
-    console.error("Error processing gloss:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-router.post("/merge-videos", async (req, res) => {
+router.post("/merge-videos", (req, res) => {
   const words = req.body.words;
+  console.log(words);
 
   if (!words || words.length === 0) {
     return res.status(400).send("No words provided");
   }
 
   let videoProcessingPromises = [];
+  let skipQuestionMark = false;
 
-  words.forEach((word) => {
-    const wordVideoPath = path.join(videosDir, `${word}.mp4`);
-    if (fileExists(wordVideoPath)) {
-      videoProcessingPromises.push(preprocessVideo(wordVideoPath));
-    } else {
-      console.log("Word not found: ", word);
-      word
-        .toLowerCase()
-        .split("")
-        .forEach((char) => {
-          const charVideoPath = path.join(lettersDir, `${char}.mp4`);
-          if (fileExists(charVideoPath)) {
-            videoProcessingPromises.push(preprocessVideo(charVideoPath));
+  let signal = 0;
+  words.forEach((word, index) => {
+    if (skipQuestionMark) {
+      skipQuestionMark = false;
+      return; // Skip processing the word and move to the next iteration
+    }
+    if (signal == 0) {
+      if (["who", "where", "why", "what", "how"].includes(word.toLowerCase())) {
+        word = word.toLowerCase();
+        skipQuestionMark = true; // Set the flag to skip the next word
+      } else if (word == "?") {
+        word = "question-mark";
+      }
+      let r;
+      r = word.replace(/[\[\]\(\),.+]+/g, "");
+      const wordVideoPath = path.join(videosDir, `${r}.mp4`);
+
+      if (fileExists(wordVideoPath)) {
+        videoProcessingPromises.push(preprocessVideo(wordVideoPath));
+      } else if (fileExists(word)) {
+        videoProcessingPromises.push(path.join(videosDir, `${word}.mp4`));
+      } else {
+        console.log("Word not found: ", word);
+        console.log(index);
+
+        if (index < words.length - 1) {
+          let current = "";
+          current =
+            word +
+            "-" +
+            words[index + 1].toLowerCase().replace(/[\[\]\(\),.+]+/g, "");
+          // let cleaned = word.replace(/[\[\]\(\),.+]+/g, "");
+          const wordVideoPath = path.join(videosDir, `${current}.mp4`);
+          console.log(wordVideoPath);
+          if (fileExists(wordVideoPath)) {
+            signal = 1;
+            videoProcessingPromises.push(preprocessVideo(wordVideoPath));
+          } else {
+            word
+              .toLowerCase()
+              .split("")
+              .forEach((char) => {
+                const charVideoPath = path.join(lettersDir, `${char}.mp4`);
+                if (fileExists(charVideoPath)) {
+                  videoProcessingPromises.push(preprocessVideo(charVideoPath));
+                }
+              });
           }
-        });
+        } else {
+          word
+            .toLowerCase()
+            .split("")
+            .forEach((char) => {
+              const charVideoPath = path.join(lettersDir, `${char}.mp4`);
+              if (fileExists(charVideoPath)) {
+                videoProcessingPromises.push(preprocessVideo(charVideoPath));
+              }
+            });
+        }
+      }
+    } else {
+      signal = 0;
     }
   });
 

@@ -19,7 +19,7 @@ const HistoryDisplay: React.FC = () => {
   const historyRows = splitHistoryIntoRows(history);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 mt-4 pt-[15vh] pb-8">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100  pt-[15vh] pb-8">
       <div className="container p-4 max-w-4xl bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
           Gloss History

@@ -15,39 +15,14 @@ const s3 = new AWS.S3({
 // AWS S3 bucket name
 const bucketName = "psl-translation-video-bucket";
 const videoDir = "transfer";
-const letterDir = "alphabets";
 
 const getVideoContent = async (videoKey) => {
   const params = {
     Bucket: bucketName,
-    Key: videoKey,
+    Key: `${videoDir}/${videoKey}`,
   };
   const data = await s3.getObject(params).promise();
   return data.Body;
-};
-
-const fetchWordVideo = async (word) => {
-  const videoKey = `${videoDir}/${word}.mp4`;
-  try {
-    const videoStream = await getVideoContent(videoKey);
-    return videoStream;
-  } catch (error) {
-    return null; // Return null if video is not found
-  }
-};
-
-const fetchLetterVideos = async (word) => {
-  const letterVideos = [];
-  for (const char of word.toLowerCase()) {
-    const charVideoKey = `${letterDir}/${char}.mp4`;
-    try {
-      const charVideoStream = await getVideoContent(charVideoKey);
-      letterVideos.push(charVideoStream);
-    } catch (error) {
-      console.error(`Video not found for character '${char}'`);
-    }
-  }
-  return letterVideos;
 };
 
 router.post("/process-words", async (req, res) => {
@@ -59,25 +34,14 @@ router.post("/process-words", async (req, res) => {
 
   try {
     const videoPaths = [];
-    const videoStreams = [];
 
     // Fetch video streams for each word and write them to temporary files
-    for (const originalWord of words) {
-      let word = originalWord;
-      if (word === "?") {
-        word = "question-mark";
-      }
-      let videoStream = await fetchWordVideo(word);
-
-      // If word video not found, fetch letter videos
-      if (!videoStream) {
-        videoStream = Buffer.concat(await fetchLetterVideos(word));
-      }
-
+    for (const word of words) {
+      const videoKey = `${word}.mp4`; // Assuming video filenames are the same as words
+      const videoStream = await getVideoContent(videoKey);
       const tempFilePath = path.join(__dirname, "..", "temp", `${word}.mp4`);
       fs.writeFileSync(tempFilePath, videoStream);
       videoPaths.push(tempFilePath);
-      videoStreams.push(videoStream);
     }
 
     // Write video paths to a text file

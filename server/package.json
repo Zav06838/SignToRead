@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1583.0",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
@@ -20,11 +21,16 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "fluent-ffmpeg": "^2.1.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",
+    "node-wordnet": "^0.1.12",
     "nodemon": "^3.0.1",
     "powerthesaurus-api": "^2.0.3",
     "python-shell": "^5.0.0",
-    "uuid": "^9.0.1"
+    "request": "^2.88.2",
+    "text-to-image": "^5.2.0",
+    "uuid": "^9.0.1",
+    "wndb-with-exceptions": "^3.0.2"
   }
 }
