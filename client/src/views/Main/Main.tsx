@@ -70,7 +70,7 @@ const Main = () => {
     try {
       // Call the model API to generate gloss from input text
       const modelResponse = await axios.post(
-        "/translate",
+        "http://119.63.132.178:5001/translate",
         { text: inputText } // Pass the inputText directly
       );
 

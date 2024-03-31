@@ -54,6 +54,8 @@ const preprocessVideo = (videoPath) => {
   });
 };
 
+
+
 router.post("/merge-videos", (req, res) => {
   const words = req.body.words;
   console.log(words);

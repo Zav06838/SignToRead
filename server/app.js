@@ -50,22 +50,9 @@ mongoose
     console.log(error);
   });
 
-
 app.use("/api/users", userRoutes);
-
-// Proxy route to forward requests to the Flask server
-app.post("/translate", async (req, res) => {
-  try {
-    const flaskResponse = await axios.post("http://119.63.132.178:5001/translate", req.body);
-    res.json(flaskResponse.data);
-  } catch (error) {
-    console.error("Error proxying request:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
 
 // app.use(videoRouter);
 app.use(localRouter);
-
 
 module.exports = app;
