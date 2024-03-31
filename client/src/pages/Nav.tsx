@@ -19,7 +19,7 @@ const Nav = () => {
       <ul className="flex gap-10 mr-8 mt-2">
         <li>
           <NavLink
-            to="/main"
+            to="/home"
             className={({ isActive }) => (isActive ? "underline" : "")}
           >
             Home

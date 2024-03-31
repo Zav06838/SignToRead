@@ -8,7 +8,7 @@ export default function SignInPage() {
       <Nav />
       <div className="flex justify-center items-center">
         <div className="w-full max-w-md">
-          <SignIn afterSignInUrl="/" />
+          <SignIn afterSignInUrl="/home" />
         </div>
       </div>
     </div>
