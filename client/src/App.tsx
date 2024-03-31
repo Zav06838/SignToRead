@@ -38,8 +38,8 @@ function App() {
 
       <Routes>
         {/* Main routes */}
-        <Route path="/" element={<Hero />} />
-        <Route path="/home" element={<Main />} />
+        <Route path="/home" element={<Hero />} />
+        <Route path="/" element={<Main />} />
         <Route path="/main2" element={<Main2 />} />
         <Route path="/v" element={<Video />} />
 

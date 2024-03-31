@@ -12,14 +12,14 @@ const Nav = () => {
 
   return (
     <div className="nav ">
-      <NavLink to="/" className="home">
+      <NavLink to="/home" className="home">
         <p className="ml-8 ">SignToRead</p>
       </NavLink>
 
       <ul className="flex gap-10 mr-8 mt-2">
         <li>
           <NavLink
-            to="/home"
+            to="/"
             className={({ isActive }) => (isActive ? "underline" : "")}
           >
             Home
@@ -46,7 +46,7 @@ const Nav = () => {
           </li>
         ) : (
           <li className="text-slate-100">
-            <UserButton afterSignOutUrl="/home" />
+            <UserButton afterSignOutUrl="/" />
           </li>
         )}
       </ul>
