@@ -46,7 +46,7 @@ const Nav = () => {
           </li>
         ) : (
           <li className="text-slate-100">
-            <UserButton afterSignOutUrl="/main" />
+            <UserButton afterSignOutUrl="/home" />
           </li>
         )}
       </ul>

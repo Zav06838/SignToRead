@@ -67,7 +67,7 @@ function Hero() {
   const navigate = useNavigate(); // Initialize useNavigate hook
 
   const homeClick = () => {
-    navigate("/main");
+    navigate("/home");
   };
   return (
     <div className="hero">
