@@ -18,12 +18,6 @@ import { useUser } from "@clerk/clerk-react";
 import Nav from "@/pages/Nav";
 import { useTheme } from "@/components/theme-provider";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 const Main = () => {
   const [inputText, setInputText] = useState("");
@@ -32,8 +26,8 @@ const Main = () => {
   const [videoSource, setVideoSource] = useState("");
   const [loading, setLoading] = useState(false);
   const [glossText, setGlossText] = useState("");
+  const [, setStopGeneration] = useState(false);
   const [showCardsLoader, setShowCardsLoader] = useState(false);
-  const [stopGeneration, setStopGeneration] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -70,7 +64,6 @@ const Main = () => {
     setLoading(true);
     setShowCardsLoader(true);
     setGreetAndCardsVisible(false);
-    setStopGeneration(false); // Reset stopGeneration flag
 
     console.log("showCardsLoader before API request:", showCardsLoader);
 
@@ -80,43 +73,14 @@ const Main = () => {
         { text: inputText }
       );
 
-      // Check stopGeneration flag before continuing
-      if (stopGeneration) {
-        setLoading(false);
-        return;
-      }
-
       const glossText = modelResponse.data.gloss;
       setGlossText(glossText);
 
-      let words = glossText.split(" ");
-      words = words.filter((word) => word.trim()); // Remove empty strings
-
-      const wordPromises = words.map(async (word) => {
-        try {
-          const signResponse = await axios.post(
-            "http://119.63.132.178:5000/get_sign",
-            { word: word, sentence: inputText }
-          );
-
-          if (signResponse.data && signResponse.data.sign) {
-            return signResponse.data.sign;
-          } else {
-            return word; // Use the original word if no update is found
-          }
-        } catch (error) {
-          console.error("Error fetching sign for word:", error);
-          return word; // Use the original word in case of error
-        }
-      });
-
-      const updatedWords = await Promise.all(wordPromises);
-
-      console.log("updatedWords:", updatedWords);
+      const words = glossText.split(" ");
 
       const response = await axios.post(
         "http://localhost:3000/merge-videos",
-        { words: updatedWords },
+        { words },
         { responseType: "blob" }
       );
 
@@ -129,7 +93,7 @@ const Main = () => {
         dispatch(
           addHistoryItems({
             input: inputText,
-            output: updatedWords.join(" "),
+            output: words.join(" "),
             video: videoBlobUrl,
           })
         );
@@ -144,69 +108,6 @@ const Main = () => {
       console.log("showCardsLoader after API request:", showCardsLoader);
     }
   };
-
-  // const handleGenerateClick = async () => {
-  //   setInputText("");
-  //   setLoading(true);
-  //   setShowCardsLoader(true);
-  //   setGreetAndCardsVisible(false);
-  //   setStopGeneration(false); // Reset stopGeneration flag
-
-  //   console.log("showCardsLoader before API request:", showCardsLoader);
-
-  //   try {
-  //     const modelResponse = await axios.post(
-  //       "http://119.63.132.178:5001/translate",
-  //       { text: inputText }
-  //     );
-
-  //     // Check stopGeneration flag before continuing
-  //     if (stopGeneration) {
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     const glossText = modelResponse.data.gloss;
-  //     setGlossText(glossText);
-
-  //     const words = glossText.split(" ");
-
-  //     const response = await axios.post(
-  //       "http://localhost:3000/merge-videos",
-  //       { words },
-  //       { responseType: "blob" }
-  //     );
-
-  //     // Check stopGeneration flag before continuing
-  //     if (stopGeneration) {
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     if (response.data) {
-  //       const videoBlobUrl = URL.createObjectURL(response.data);
-  //       setVideoSource(videoBlobUrl);
-  //       setShowResult(true);
-  //       setShowCardsLoader(false);
-
-  //       dispatch(
-  //         addHistoryItems({
-  //           input: inputText,
-  //           output: words.join(" "),
-  //           video: videoBlobUrl,
-  //         })
-  //       );
-  //     } else {
-  //       toast.error("No video found for this text.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error generating video:", error);
-  //     toast.error("Error generating video.");
-  //   } finally {
-  //     setLoading(false);
-  //     console.log("showCardsLoader after API request:", showCardsLoader);
-  //   }
-  // };
 
   const { user } = useUser();
 
@@ -243,7 +144,6 @@ const Main = () => {
             </div>
           </div>
         )}
-
         <div className="main-bottom">
           <div className="search-box bg-slate-200 dark:bg-[#1e1f20] focus-within:bg-slate-300 dark:focus-within:bg-white dark:focus-within:bg-opacity-20 p-2 rounded-xl">
             <input
@@ -264,31 +164,9 @@ const Main = () => {
               className="text-white rounded-xl p-2 bg-transparent transition duration-300 transform hover:scale-105 hover:bg-transparent ml-2"
             >
               {loading ? (
-                <>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <img src={stopImage} alt="" onClick={handleStopClick} />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Stop</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </>
+                <img src={stopImage} alt="" onClick={handleStopClick} />
               ) : (
-                <>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <img src={buttonImage} alt="" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Send Message</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </>
+                <img src={buttonImage} alt="" />
               )}
             </Button>
           </div>
@@ -298,29 +176,32 @@ const Main = () => {
             Sign Language Videos.
           </p>
         </div>
-
-        {loading && showCardsLoader && (
+        {showResult && (
           <div className="video-container">
             <div className="flex flex-col justify-center items-center">
               <div className="w-full lg:w-[600px]">
-                <div className="flex flex-col space-y-3">
-                  <Skeleton className={`h-8 w-[300px] ${loaderColor}`} />
-                  <Skeleton className={`h-[330px] rounded-xl ${loaderColor}`} />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+                {loading ? (
+                  <div className="flex flex-col space-y-3">
+                    <Skeleton className={`h-8 w-[300px] ${loaderColor}`} />
+                    <Skeleton
+                      className={`h-[330px] rounded-xl ${loaderColor}`}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <p className="gloss-text text-[#1e1f20] dark:text-[#ffffff] text-xl mb-2">
+                      <span className="gloss1">Gloss: </span>
+                      {glossText}
+                    </p>
 
-        {!loading && showResult && (
-          <div className="video-container">
-            <div className="flex flex-col justify-center items-center">
-              <div className="w-full lg:w-[600px]">
-                <p className="gloss-text text-[#1e1f20] dark:text-[#ffffff] text-xl mb-2">
-                  <span className="gloss1">Gloss: </span>
-                  {glossText}
-                </p>
-                <video src={videoSource} autoPlay controls></video>
+                    <video
+                      src={videoSource}
+                      autoPlay
+                      controls
+                      className="w-full"
+                    ></video>
+                  </div>
+                )}
               </div>
             </div>
           </div>

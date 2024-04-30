@@ -5,7 +5,7 @@ interface HistoryItem {
   output: string;
 }
 
-interface HistoryState {
+export interface HistoryState {
   items: HistoryItem[];
 }
 

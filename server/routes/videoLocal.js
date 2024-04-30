@@ -54,8 +54,6 @@ const preprocessVideo = (videoPath) => {
   });
 };
 
-
-
 router.post("/merge-videos", (req, res) => {
   const words = req.body.words;
   console.log(words);
@@ -73,6 +71,12 @@ router.post("/merge-videos", (req, res) => {
       skipQuestionMark = false;
       return; // Skip processing the word and move to the next iteration
     }
+
+    if (word == "(1)") {
+      signal = 1;
+      return;
+    }
+
     if (signal == 0) {
       if (["who", "where", "why", "what", "how"].includes(word.toLowerCase())) {
         word = word.toLowerCase();
@@ -81,7 +85,7 @@ router.post("/merge-videos", (req, res) => {
         word = "question-mark";
       }
       let r;
-      r = word.replace(/[\[\]\(\),.+]+/g, "");
+      r = word.replace(/[\[\],.+]+/g, "");
       const wordVideoPath = path.join(videosDir, `${r}.mp4`);
 
       if (fileExists(wordVideoPath)) {
@@ -97,7 +101,7 @@ router.post("/merge-videos", (req, res) => {
           current =
             word +
             "-" +
-            words[index + 1].toLowerCase().replace(/[\[\]\(\),.+]+/g, "");
+            words[index + 1].toLowerCase().replace(/[\[\],.+]+/g, "");
           // let cleaned = word.replace(/[\[\]\(\),.+]+/g, "");
           const wordVideoPath = path.join(videosDir, `${current}.mp4`);
           console.log(wordVideoPath);

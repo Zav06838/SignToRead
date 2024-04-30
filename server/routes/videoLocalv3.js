@@ -54,7 +54,33 @@ const preprocessVideo = (videoPath) => {
   });
 };
 
-router.post("/merge-videos", (req, res) => {
+const findSynonym = async (word) => {
+  const apiKeyTh = process.env.THESAURUS_API_KEY;
+  const url = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=${apiKeyTh}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (Array.isArray(data) && data.length > 0) {
+      const synonyms = data[0].meta.syns.flat();
+      if (synonyms.length > 0) {
+        return synonyms.filter((synonym) => synonym !== word)[0]; // Return the first synonym
+      } else {
+        console.error(`No synonyms found for '${word}'`);
+        return null;
+      }
+    } else {
+      console.error(`No synonyms found for '${word}'`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`Failed to fetch synonyms for '${word}': ${error}`);
+    return null;
+  }
+};
+
+router.post("/merge-videos", async (req, res) => {
   const words = req.body.words;
   console.log(words);
 
@@ -66,15 +92,16 @@ router.post("/merge-videos", (req, res) => {
   let skipQuestionMark = false;
 
   let signal = 0;
-  words.forEach((word, index) => {
+  for (let index = 0; index < words.length; index++) {
+    let word = words[index];
     if (skipQuestionMark) {
       skipQuestionMark = false;
-      return; // Skip processing the word and move to the next iteration
+      continue; // Skip processing the word and move to the next iteration
     }
 
     if (word == "(1)") {
       signal = 1;
-      return;
+      continue;
     }
 
     if (signal == 0) {
@@ -90,24 +117,44 @@ router.post("/merge-videos", (req, res) => {
 
       if (fileExists(wordVideoPath)) {
         videoProcessingPromises.push(preprocessVideo(wordVideoPath));
-      } else if (fileExists(word)) {
-        videoProcessingPromises.push(path.join(videosDir, `${word}.mp4`));
       } else {
-        console.log("Word not found: ", word);
-        console.log(index);
+        const synonym = await findSynonym(word);
+        if (synonym) {
+          const synonymVideoPath = path.join(videosDir, `${synonym}.mp4`);
+          if (fileExists(synonymVideoPath)) {
+            videoProcessingPromises.push(preprocessVideo(synonymVideoPath));
+          }
+        } else if (fileExists(word)) {
+          videoProcessingPromises.push(path.join(videosDir, `${word}.mp4`));
+        } else {
+          console.log("Word not found: ", word);
+          console.log(index);
 
-        if (index < words.length - 1) {
-          let current = "";
-          current =
-            word +
-            "-" +
-            words[index + 1].toLowerCase().replace(/[\[\]\(\),.+]+/g, "");
-          // let cleaned = word.replace(/[\[\]\(\),.+]+/g, "");
-          const wordVideoPath = path.join(videosDir, `${current}.mp4`);
-          console.log(wordVideoPath);
-          if (fileExists(wordVideoPath)) {
-            signal = 1;
-            videoProcessingPromises.push(preprocessVideo(wordVideoPath));
+          if (index < words.length - 1) {
+            let current = "";
+            current =
+              word +
+              "-" +
+              words[index + 1].toLowerCase().replace(/[\[\]\(\),.+]+/g, "");
+            // let cleaned = word.replace(/[\[\]\(\),.+]+/g, "");
+            const wordVideoPath = path.join(videosDir, `${current}.mp4`);
+            console.log(wordVideoPath);
+            if (fileExists(wordVideoPath)) {
+              signal = 1;
+              videoProcessingPromises.push(preprocessVideo(wordVideoPath));
+            } else {
+              word
+                .toLowerCase()
+                .split("")
+                .forEach((char) => {
+                  const charVideoPath = path.join(lettersDir, `${char}.mp4`);
+                  if (fileExists(charVideoPath)) {
+                    videoProcessingPromises.push(
+                      preprocessVideo(charVideoPath)
+                    );
+                  }
+                });
+            }
           } else {
             word
               .toLowerCase()
@@ -119,22 +166,12 @@ router.post("/merge-videos", (req, res) => {
                 }
               });
           }
-        } else {
-          word
-            .toLowerCase()
-            .split("")
-            .forEach((char) => {
-              const charVideoPath = path.join(lettersDir, `${char}.mp4`);
-              if (fileExists(charVideoPath)) {
-                videoProcessingPromises.push(preprocessVideo(charVideoPath));
-              }
-            });
         }
       }
     } else {
       signal = 0;
     }
-  });
+  }
 
   Promise.all(videoProcessingPromises)
     .then((processedVideoFiles) => {

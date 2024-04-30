@@ -79,23 +79,28 @@ const fetchWordVideo = async (word) => {
           );
         }
       }
-    } else {
-      console.error(`No videos found for word '${word}'`);
-      const image = await fetchImageFor(word);
-      if (image) {
-        return image;
-      } else {
-        console.error(`No image found for word '${word}'`);
-        return null;
-      }
     }
     return null;
   }
 };
 
+// const findSynonymsFor = async (word) => {
+//   const url = `https://api.datamuse.com/words?rel_syn=${word}`;
+//   try {
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     return data.map((item) => item.word);
+//   } catch (error) {
+//     console.error(`Failed to fetch synonyms for '${word}': ${error}`);
+//     return [];
+//   }
+// };
+
 const findSynonymsFor = async (word) => {
-  const apiKeyTh = process.env.THESAURUS_API_KEY;
+  const apiKeyTh = "f054aa8f-5fa2-4134-af0f-accda7d3c21b";
   const url = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=${apiKeyTh}`;
+  // const apiKeyITh = "089aac8c-e1d2-4966-b3c8-ef05b2da9457";
+  // const url2 = `https://www.dictionaryapi.com/api/v3/references/ithesaurus/json/${word}?key=${apiKeyITh}`;
 
   try {
     const response = await fetch(url);
@@ -111,29 +116,6 @@ const findSynonymsFor = async (word) => {
   } catch (error) {
     console.error(`Failed to fetch synonyms for '${word}': ${error}`);
     return [];
-  }
-};
-
-const fetchImageFor = async (word) => {
-  const apiKey = process.env.GOOGLE_API_KEY;
-  const searchEngineId = process.env.GOOGLE_SEARCH_ENGINE_ID;
-  const url = `https://www.googleapis.com/customsearch/v1?q=${word}&cx=${searchEngineId}&key=${apiKey}&searchType=image`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.items && data.items.length > 0) {
-      const imageUrl = data.items[0].link;
-      const imageResponse = await fetch(imageUrl);
-      return await imageResponse.buffer();
-    } else {
-      console.error(`No image found for '${word}'`);
-      return null;
-    }
-  } catch (error) {
-    console.error(`Failed to fetch image for '${word}': ${error}`);
-    return null;
   }
 };
 

@@ -13,6 +13,8 @@ export default defineConfig({
     proxy: {
       "/api/glosses": "http://localhost:3000",
       "/merge-videos": "http://localhost:3000",
+      "/translate": "http://119.63.132.178:5001",
+      "/get_sign": "http://119.63.132.178:5000",
     },
   },
 });
