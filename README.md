@@ -1,8 +1,5 @@
 # SignToRead
 
-[![Watch the video](![image](https://i.imgur.com/vKb2F1B.png)](https://github.com/Zav06838/SignToRead/raw/main/demo/SignToRead_Demo.mp4)
-
-
 ## About:
 This project aims to bridge the communication gap for the deaf community by providing a text-to-video translator. It converts English text into a video displaying sign language gestures, enabling easier comprehension for deaf individuals. The solution utilizes AI technology to convert text into Pakistan Sign Language (PSL) Gloss, which is then translated into sign language gestures performed by human signers. The system leverages videos from PSL.org for sign language gestures.
 
