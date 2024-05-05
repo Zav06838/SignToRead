@@ -1,7 +1,6 @@
 # SignToRead
 
-[![Watch the video](![image](https://github.com/Zav06838/SignToRead/assets/78081958/4e4525cf-849c-4a64-bb84-07a43c61e2b6)
-)](https://github.com/Zav06838/SignToRead/raw/main/demo/SignToRead_Demo.mp4)
+[![Watch the video](![image](https://i.imgur.com/vKb2F1B.png)](https://github.com/Zav06838/SignToRead/raw/main/demo/SignToRead_Demo.mp4)
 
 
 ## About:
