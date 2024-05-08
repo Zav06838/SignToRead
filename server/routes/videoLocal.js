@@ -5,16 +5,16 @@ const fs = require("fs");
 const { spawn } = require("child_process");
 
 // Absolute paths to the videos directories
+// const videosDir =
+//   "C:\\Users\\Zaviar Khan\\OneDrive - Habib University\\PSL-Videos\\transfer";
 const videosDir =
-  "C:\\Users\\Zaviar Khan\\OneDrive - Habib University\\PSL-Videos\\transfer";
+  "C:\\Users\\Zaviar Khan\\Desktop\\WEB DEV\\SignToRead\\server\\videos";
+
 const lettersDir =
   "C:\\Users\\Zaviar Khan\\OneDrive - Habib University\\PSL-Videos\\alphabets";
 
 // Serve static files from the videos directory
-router.use(
-  "https://0a83-205-164-158-83.ngrok-free.app/videos",
-  express.static(videosDir)
-);
+router.use("/videos", express.static(videosDir));
 
 // Check if a file exists
 const fileExists = (filePath) => {
