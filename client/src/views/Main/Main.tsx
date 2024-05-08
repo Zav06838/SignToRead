@@ -76,7 +76,8 @@ const Main = () => {
 
     try {
       const modelResponse = await axios.post(
-        "http://119.63.132.178:5001/translate",
+        // "http://119.63.132.178:5001/translate",
+        "/translate",
         { text: inputText }
       );
 
@@ -95,7 +96,8 @@ const Main = () => {
       const wordPromises = words.map(async (word) => {
         try {
           const signResponse = await axios.post(
-            "http://119.63.132.178:5000/get_sign",
+            // "http://119.63.132.178:5000/get_sign",
+            "/get_sign",
             { word: word, sentence: inputText }
           );
 
