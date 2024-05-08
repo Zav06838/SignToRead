@@ -7,6 +7,10 @@ const { spawn } = require("child_process");
 // Absolute paths to the videos directories
 // const videosDir =
 //   "C:\\Users\\Zaviar Khan\\OneDrive - Habib University\\PSL-Videos\\transfer";
+
+// const videosDir =
+//   "C:\\Users\\Zaviar Khan\\Desktop\\WEB DEV\\SignToRead\\server\\videos";
+
 const videosDir =
   "C:\\Users\\Zaviar Khan\\Desktop\\WEB DEV\\SignToRead\\server\\videos";
 

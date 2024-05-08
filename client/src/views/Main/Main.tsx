@@ -234,14 +234,20 @@ const Main = () => {
               </p>
             </div>
 
-            <div className="cards flex flex-wrap justify-center">
+            <div className="cards flex flex-wrap justify-center ">
               {cardData.map((card, index) => (
-                <Card
+                // Show only 6 cards on medium screens
+                // Use responsive classes to control card visibility
+                <div
                   key={index}
-                  text={card.text}
-                  image={card.image}
-                  onClick={() => handleCardClick(card.text)}
-                />
+                  className="md:flex  min-[0px]:hidden max-[600px]:flex "
+                >
+                  <Card
+                    text={card.text}
+                    image={card.image}
+                    onClick={() => handleCardClick(card.text)}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -303,7 +309,7 @@ const Main = () => {
         </div>
 
         {loading && showCardsLoader && (
-          <div className="video-container">
+          <div className="video-container max-[600px]:mt-36">
             <div className="flex flex-col justify-center items-center">
               <div className="w-full lg:w-[600px]">
                 <div className="flex flex-col space-y-3">
@@ -316,7 +322,7 @@ const Main = () => {
         )}
 
         {!loading && showResult && (
-          <div className="video-container">
+          <div className="video-container max-[600px]:mt-36">
             <div className="flex flex-col justify-center items-center">
               <div className="w-full lg:w-[600px]">
                 <p className="gloss-text text-[#1e1f20] dark:text-[#ffffff] text-xl mb-2">
