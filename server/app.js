@@ -22,12 +22,11 @@ app.use(express.json());
 //   next();
 // });
 
-
 const corsOptions = {
   origin: [
     "http://127.0.0.1:5173",
     "https://119.63.132.178:5000",
-    "https://sign-to-read.vercel.app/",
+    "https://sign-to-read.vercel.app/translate",
     "https://119.63.132.178:5001",
     "http://localhost:5000",
     "*",

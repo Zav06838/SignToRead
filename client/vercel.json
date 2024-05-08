@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "src": "/translate",
+      "methods": ["POST"],
+      "dest": "https://119.63.132.178:5001/translate"
+    }
+  ]
+}
