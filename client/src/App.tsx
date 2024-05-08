@@ -2,7 +2,14 @@ import "./App.css";
 
 // @ts-ignore: Ignore TypeScript warnings for unused imports or variables
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { ClerkProvider, RedirectToSignIn, useUser } from "@clerk/clerk-react";
+import {
+  ClerkProvider,
+  RedirectToSignIn,
+  SignIn,
+  SignedIn,
+  SignedOut,
+  useUser,
+} from "@clerk/clerk-react";
 import { dark, neobrutalism } from "@clerk/themes";
 
 import Login from "./pages/LoginPage";
@@ -44,8 +51,7 @@ function App() {
           socialButtonsPlacement: "bottom",
           socialButtonsVariant: "auto",
         },
-        elements: {
-        },
+        elements: {},
       }}
     >
       {/* <Navbar /> */}
@@ -56,20 +62,24 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/main2" element={<Main2 />} />
         <Route path="/v" element={<Video />} />
-
         {/* Login & Signup */}
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-
         {/* Protected route */}
+
         <Route
           path="/history"
           element={
-            <ProtectedRoute>
-              <HistoryPage />
-            </ProtectedRoute>
+            <>
+              <SignedIn>
+                <HistoryPage />
+              </SignedIn>
+              <SignedOut>
+                <SignInPage />
+              </SignedOut>
+            </>
           }
         />
       </Routes>
