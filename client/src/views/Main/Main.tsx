@@ -118,7 +118,7 @@ const Main = () => {
 
       const response = await axios.post(
         // "http://localhost:3000/merge-videos",
-        "/merge-videos",
+        "/process-words",
         { words: updatedWords },
         { responseType: "blob" }
       );

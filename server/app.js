@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const videoRouter = require("./routes/videoRoutes");
+const awsRouter = require("./routes/best_working_code");
 const localRouter = require("./routes/videoLocal");
 const historyRoutes = require("./routes/historyRoutes");
 
@@ -66,8 +67,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/history", authenticateUser, historyRoutes);
-app.use(videoRouter);
-
+// app.use(videoRouter);
+app.use(awsRouter);
 app.use(localRouter);
 
 module.exports = app;
