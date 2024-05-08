@@ -9,6 +9,11 @@
       "src": "/get_sign",
       "methods": ["GET"],
       "dest": "https://119.63.132.178:5000/get_sign"
+    },
+    {
+      "src": "/merge-videos",
+      "methods": ["POST"],
+      "dest": "https://0a83-205-164-158-83.ngrok-free.app/merge-videos"
     }
   ]
 }

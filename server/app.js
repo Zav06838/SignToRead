@@ -26,9 +26,10 @@ const corsOptions = {
   origin: [
     "http://127.0.0.1:5173",
     "https://119.63.132.178:5000",
-    "https://sign-to-read.vercel.app/translate",
+    "https://sign-to-read.vercel.app",
     "https://119.63.132.178:5001",
     "http://localhost:5000",
+    "https://0a83-205-164-158-83.ngrok-free.app",
     "*",
   ], // Allow requests from both frontend origins
   credentials: true, // To allow cookies
@@ -60,8 +61,13 @@ function authenticateUser(req, res, next) {
   }
 }
 
+app.get("/", (req, res) => {
+  res.send("Backend is properly hosted!");
+});
+
 app.use("/api/history", authenticateUser, historyRoutes);
 app.use(videoRouter);
+
 app.use(localRouter);
 
 module.exports = app;

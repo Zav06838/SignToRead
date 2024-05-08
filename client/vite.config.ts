@@ -11,8 +11,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api/glosses": "http://localhost:3000",
-      "/merge-videos": "http://localhost:3000",
+      "/api/glosses": "https://0a83-205-164-158-83.ngrok-free.app",
+      "/merge-videos": "https://0a83-205-164-158-83.ngrok-free.app",
       "/translate": {
         target: "https://119.63.132.178:5001",
         secure: false, // Set secure to false to allow self-signed certificates
@@ -21,6 +21,8 @@ export default defineConfig({
         target: "https://119.63.132.178:5000",
         secure: false, // Set secure to false to allow self-signed certificates
       },
+      // "/api/glosses": "http://localhost:3000",
+      // "/merge-videos": "http://localhost:3000",
       // "/translate": "http://119.63.132.178:5001",
       // "/get_sign": "http://119.63.132.178:5000",
     },
