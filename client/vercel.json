@@ -4,6 +4,11 @@
       "src": "/translate",
       "methods": ["POST"],
       "dest": "https://119.63.132.178:5001/translate"
+    },
+    {
+      "src": "/get_sign",
+      "methods": ["GET"],
+      "dest": "https://119.63.132.178:5000/get_sign"
     }
   ]
 }
