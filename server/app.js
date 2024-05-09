@@ -39,6 +39,28 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+// const clerk = new Clerk({
+//   apiKey: process.env.CLERK_PUBLIC_KEY,
+// });
+
+// app.use((req, res, next) => {
+//   const sessionId = req.header("X-Clerk-Session-Id");
+//   if (sessionId) {
+//     clerk.users
+//       .getUserFromSessionId(sessionId)
+//       .then((user) => {
+//         req.user = user;
+//         next();
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching user:", error);
+//         next();
+//       });
+//   } else {
+//     next();
+//   }
+// });
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -51,24 +73,13 @@ mongoose
     console.log(error);
   });
 
-// Middleware to authenticate users
-function authenticateUser(req, res, next) {
-  const { user } = useUser(); // Assuming useUser is from Clerk's SDK
-  if (user) {
-    req.user = user; // Attach the user object to the request
-    return next();
-  } else {
-    res.status(401).json({ message: "Unauthorized" });
-  }
-}
-
 app.get("/", (req, res) => {
   res.send("Backend is properly hosted!");
 });
 
-app.use("/api/history", authenticateUser, historyRoutes);
 // app.use(videoRouter);
 app.use(awsRouter);
 app.use(localRouter);
+app.use(historyRoutes);
 
 module.exports = app;

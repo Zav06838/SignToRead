@@ -11,9 +11,9 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api/glosses": "https://0a83-205-164-158-83.ngrok-free.app",
-      "/merge-videos": "https://0a83-205-164-158-83.ngrok-free.app",
-      "/process-words": "https://0a83-205-164-158-83.ngrok-free.app",
+      "/api/glosses": "https://bb80-103-125-241-66.ngrok-free.app ",
+      "/merge-videos": "https://bb80-103-125-241-66.ngrok-free.app ",
+      "/process-words": "https://bb80-103-125-241-66.ngrok-free.app ",
       "/translate": {
         target: "https://119.63.132.178:5001",
         secure: false, // Set secure to false to allow self-signed certificates

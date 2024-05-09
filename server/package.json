@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^5.0.4",
     "aws-sdk": "^2.1583.0",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
@@ -24,6 +25,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",
+    "node-fetch": "^3.3.2",
     "node-wordnet": "^0.1.12",
     "nodemon": "^3.0.1",
     "powerthesaurus-api": "^2.0.3",

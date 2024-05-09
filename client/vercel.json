@@ -13,12 +13,12 @@
     {
       "src": "/merge-videos",
       "methods": ["POST"],
-      "dest": "https://0a83-205-164-158-83.ngrok-free.app/merge-videos"
+      "dest": "https://bb80-103-125-241-66.ngrok-free.app/merge-videos"
     },
     {
       "src": "/process-words",
       "methods": ["POST"],
-      "dest": "https://0a83-205-164-158-83.ngrok-free.app/process-words"
+      "dest": "https://bb80-103-125-241-66.ngrok-free.app/process-words"
     }
   ]
 }

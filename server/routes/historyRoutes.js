@@ -1,33 +1,31 @@
 const express = require("express");
-const router = express.Router();
-const History = require("../models/historyModel");
+const HistoryItem = require("../models/HistoryItem");
 
-// Add a new history item
-router.post("/", async (req, res) => {
+const router = express.Router();
+
+// Add history item for the current user
+router.post("/addHistoryItem", async (req, res) => {
+  const { input, output, video } = req.body;
+  const userId = req.user.id; // Get user ID from authenticated user
+
   try {
-    const { inputText, gloss, videoUrl } = req.body;
-    const userId = req.user.id; // Assuming req.user.id contains the user's ID from Clerk
-    const historyItem = new History({
-      user: userId,
-      inputText,
-      gloss,
-      videoUrl,
-    });
+    const historyItem = new HistoryItem({ userId, input, output, video });
     await historyItem.save();
-    res.status(201).json(historyItem);
+    res.status(201).send("History item added successfully");
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).send("Failed to add history item");
   }
 });
 
-// Get all history items for the current user
-router.get("/", async (req, res) => {
+// Get user-specific history items
+router.get("/history", async (req, res) => {
+  const userId = req.user.id; // Get user ID from authenticated user
+
   try {
-    const userId = req.user.id; // Assuming req.user.id contains the user's ID from Clerk
-    const history = await History.find({ user: userId });
-    res.json(history);
+    const historyItems = await HistoryItem.find({ userId });
+    res.status(200).json(historyItems);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).send("Failed to fetch history items");
   }
 });
 

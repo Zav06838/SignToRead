@@ -4,7 +4,12 @@ const AWS = require("aws-sdk");
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
+import("node-fetch").then((nodeFetch) => {
+  const fetch = nodeFetch.default;
+
+  // Your code that uses fetch
+});
 
 // Configure AWS SDK
 const s3 = new AWS.S3({
